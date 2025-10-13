@@ -1,9 +1,6 @@
 package com.example.portfolio.model;
 
-import java.util.Date;
-
-public class Trade {
-
+public class Transaction {
     private String date;
     private String ticker;
     private String orderType;

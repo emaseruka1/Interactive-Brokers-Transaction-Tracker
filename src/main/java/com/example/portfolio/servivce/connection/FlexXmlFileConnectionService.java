@@ -1,30 +1,41 @@
 package com.example.portfolio.servivce.connection;
 
+import com.example.portfolio.model.FlexXmlModal;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Service
 public class FlexXmlFileConnectionService {
 
     @Value("${flex.query.directory}")
     private String flexFileDirectory;
 
-    @Value("${flex.query.name}")
+    @Value("${flex.query.filename}")
     private String filename;
 
-    public File getTransactionXmlFile(){
-        Path filepath = Paths.get(flexFileDirectory,filename);
+    private final XmlMapper xmlMapper;
 
-        File transactionsXmlFile = filepath.toFile();
+    public FlexXmlFileConnectionService(XmlMapper xmlMapper){
 
-        return transactionsXmlFile;
+        this.xmlMapper= new XmlMapper();
     }
 
-    public void deleteTransactionXmlFile(){
+    public File getFlexXmlFile(){
 
-        //delete file after using it
+        Path filepath = Paths.get(flexFileDirectory,filename);
+        File FlexXmlFile = filepath.toFile();
+        return FlexXmlFile;
+    }
+
+    public parseFlexXmlFile(){
+
+        File FlexXmlFile = getFlexXmlFile();
+        //xmlMapper.readValue(FlexXmlFile, FlexXmlModal.class);
 
     }
 }
