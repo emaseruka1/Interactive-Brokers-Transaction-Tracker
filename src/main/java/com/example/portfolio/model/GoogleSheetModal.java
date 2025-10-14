@@ -1,6 +1,6 @@
 package com.example.portfolio.model;
 
-public class Transaction {
+public class GoogleSheetModal {
     private String date;
     private String ticker;
     private String orderType;
@@ -17,15 +17,6 @@ public class Transaction {
     private long cumulativeSharesHeld;
     private long cumulativeInvestedUsd;
     private long cumulativeInvestedPln;
-    private String description;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getDate() {
         return date;
