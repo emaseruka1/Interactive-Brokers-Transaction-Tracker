@@ -1,4 +1,4 @@
-package com.example.portfolio.servivce.mapper;
+package com.example.portfolio.service;
 
 
 public class FlexAndGoogleSheetModalsMapper {
