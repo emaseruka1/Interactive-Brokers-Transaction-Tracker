@@ -1,24 +1,28 @@
 package com.example.portfolio.model;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Data
+@Component
 public class GoogleSheetModal {
     private String date;
     private String ticker;
     private String orderType;
-    private long amountInvestedPln;
-    private long amountInvestedUsd;
-    private long pricePerShareUsd;
-    private long quantityBought;
-    private long netInvestedAfterCostsUSD;
-    private long averageCostBasisPerShareUsd;
-    private long fxFeesUsd;
-    private long tradingFeesUsd;
-    private long ibkrFxRatePlnUsd;
-    private long interBankFxRatePlnUsd;
-    private long cumulativeSharesHeld;
-    private long cumulativeInvestedUsd;
-    private long cumulativeInvestedPln;
+    private BigDecimal amountInvestedPln;
+    private BigDecimal amountInvestedUsd;
+    private BigDecimal pricePerShareUsd;
+    private BigDecimal quantityBought;
+    private BigDecimal netInvestedAfterCostsUSD;
+    private BigDecimal averageCostBasisPerShareUsd;
+    private BigDecimal fxFeesUsd;
+    private BigDecimal tradingFeesUsd;
+    private BigDecimal ibkrFxRatePlnUsd;
+    private BigDecimal interBankFxRatePlnUsd;
+    private BigDecimal cumulativeSharesHeld;
+    private BigDecimal cumulativeInvestedUsd;
+    private BigDecimal cumulativeInvestedPln;
 
 }

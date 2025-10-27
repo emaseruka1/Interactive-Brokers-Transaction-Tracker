@@ -32,3 +32,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Google sheet connection Credentials ###
+src/main/resources/credentials.json

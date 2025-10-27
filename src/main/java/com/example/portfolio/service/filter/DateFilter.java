@@ -2,14 +2,15 @@ package com.example.portfolio.service.filter;
 
 import com.example.portfolio.model.IbkrFlexJsonDataModal;
 import com.example.portfolio.service.connection.GoogleSheetConnectionService;
+import com.example.portfolio.utils.DateUtils;
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,11 +21,6 @@ public class DateFilter {
     private final List<LocalDate> googleSheetDatesAvailable;
     private final LocalDate googleSheetLatestDateAvailable;
 
-
-//    public List<LocalDate> googleSheetDatesAvailable = List.of(LocalDate.of(2025, 9, 25));
-
-//    public LocalDate googleSheetLatestDateAvailable = googleSheetDatesAvailable.get(0);
-
     @Autowired
     public DateFilter(IbkrFlexJsonDataModal ibkrFlexJsonDataModal,
                       GoogleSheetConnectionService googleSheetConnectionService){
@@ -32,7 +28,13 @@ public class DateFilter {
         this.ibkrFlexJsonDataModal = ibkrFlexJsonDataModal;
         this.googleSheetConnectionService = googleSheetConnectionService;
 
-        this.googleSheetDatesAvailable = this.googleSheetConnectionService.getDatesOfPastTransactionsOnGoogleSheets();
+        try {
+            this.googleSheetDatesAvailable = this.googleSheetConnectionService.getDatesOfPastTransactionsOnGoogleSheets();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         this.googleSheetLatestDateAvailable = googleSheetDatesAvailable.stream()
                 .max(LocalDate::compareTo)
                 .orElse(null);
@@ -49,11 +51,12 @@ public class DateFilter {
 
                 String orderTradeDateStr = (ord.get(i).get("tradeDate")).asText();
 
-                LocalDate orderTradeDate = LocalDate.parse(orderTradeDateStr, DateTimeFormatter.ofPattern("yyyyMMdd"));
+                LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
 
-                if ( googleSheetDatesAvailable == null || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
-                    ordersFilteredByDate.add(ord);
+                if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
+                    ordersFilteredByDate.add(ord.get(i));
                 }
+
             }
         }
 
@@ -69,15 +72,15 @@ public class DateFilter {
             for (int i=0; i<trd.size();i++){
 
                 String tradeTradeDateStr = (trd.get(i).get("tradeDate")).asText();
-                LocalDate tradeTradeDate = LocalDate.parse(tradeTradeDateStr, DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+                LocalDate tradeTradeDate = DateUtils.stringToLocalDate(tradeTradeDateStr);
 
                 if (tradeTradeDate.isAfter(googleSheetLatestDateAvailable) || googleSheetDatesAvailable.isEmpty()){
-                    tradesFilteredByDate.add(trd);
+                    tradesFilteredByDate.add(trd.get(i));
                 }
             }
         }
 
         return tradesFilteredByDate;
     }
-
 }
