@@ -75,7 +75,7 @@ public class DateFilter {
 
                 LocalDate tradeTradeDate = DateUtils.stringToLocalDate(tradeTradeDateStr);
 
-                if (tradeTradeDate.isAfter(googleSheetLatestDateAvailable) || googleSheetDatesAvailable.isEmpty()){
+                if (googleSheetDatesAvailable.isEmpty() || tradeTradeDate.isAfter(googleSheetLatestDateAvailable)){
                     tradesFilteredByDate.add(trd.get(i));
                 }
             }

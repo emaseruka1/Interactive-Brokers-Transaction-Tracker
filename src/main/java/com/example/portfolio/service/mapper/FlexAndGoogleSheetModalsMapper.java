@@ -85,9 +85,4 @@ public class FlexAndGoogleSheetModalsMapper {
         }
 
     }
-    @PostConstruct
-    public void init(){
-       createTransactionForGoogleSheets();
-    }
-
 }
