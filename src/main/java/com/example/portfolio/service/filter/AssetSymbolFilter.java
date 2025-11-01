@@ -52,4 +52,22 @@ public class AssetSymbolFilter{
         return stockTrades;
 
     }
+
+    public List<JsonNode> getCashTrades(){
+
+        List<JsonNode> cashTrades = new ArrayList<>();
+
+        List<JsonNode> tradesFilteredByDate = dateFilter.filterAllTradesByDate();
+
+        for (JsonNode trd:tradesFilteredByDate){
+
+            String assetCategory = (trd.get("assetCategory")).asText();
+
+            if (assetCategory.equals("CASH")){
+                cashTrades.add(trd);
+            }
+        }
+        return cashTrades;
+
+    }
 }

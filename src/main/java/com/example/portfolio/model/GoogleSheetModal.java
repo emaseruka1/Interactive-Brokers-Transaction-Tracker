@@ -12,7 +12,7 @@ public class GoogleSheetModal {
     private String ticker;
     private String orderType;
     private BigDecimal amountInvestedPln;
-    private BigDecimal amountInvestedUsd;
+    private BigDecimal actualAmountInvestedUsd;
     private BigDecimal pricePerShareUsd;
     private BigDecimal quantityBought;
     private BigDecimal netInvestedAfterCostsUSD;
@@ -21,8 +21,4 @@ public class GoogleSheetModal {
     private BigDecimal tradingFeesUsd;
     private BigDecimal ibkrFxRatePlnUsd;
     private BigDecimal interBankFxRatePlnUsd;
-    private BigDecimal cumulativeSharesHeld;
-    private BigDecimal cumulativeInvestedUsd;
-    private BigDecimal cumulativeInvestedPln;
-
 }

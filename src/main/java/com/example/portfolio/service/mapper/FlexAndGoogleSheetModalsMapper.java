@@ -1,7 +1,10 @@
 package com.example.portfolio.service.mapper;
 
 import com.example.portfolio.model.GoogleSheetModal;
+import com.example.portfolio.service.calculation.AvgCostPerShareAggregation;
+import com.example.portfolio.service.calculation.IbkrFxRateCalculation;
 import com.example.portfolio.service.connection.GoogleSheetConnectionService;
+import com.example.portfolio.service.connection.NbpExchangeRateConnectionService;
 import com.example.portfolio.service.filter.AssetSymbolFilter;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
@@ -10,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FlexAndGoogleSheetModalsMapper {
@@ -19,50 +24,62 @@ public class FlexAndGoogleSheetModalsMapper {
     private final GoogleSheetModal googleSheetModal;
     private final AssetSymbolFilter assetSymbolFilter;
     private final GoogleSheetConnectionService googleSheetConnectionService;
+    private final AvgCostPerShareAggregation avgCostPerShareAggregation;
+    private final IbkrFxRateCalculation ibkrFxRateCalculation;
+    private final NbpExchangeRateConnectionService nbpExchangeRateConnectionService;
 
     @Autowired
-    public FlexAndGoogleSheetModalsMapper(GoogleSheetModal googleSheetModal,AssetSymbolFilter assetSymbolFilter, GoogleSheetConnectionService googleSheetConnectionService){
+    public FlexAndGoogleSheetModalsMapper(GoogleSheetModal googleSheetModal,
+                                          AssetSymbolFilter assetSymbolFilter,
+                                          GoogleSheetConnectionService googleSheetConnectionService,
+                                          AvgCostPerShareAggregation avgCostPerShareAggregation,
+                                          IbkrFxRateCalculation ibkrFxRateCalculation,
+                                          NbpExchangeRateConnectionService nbpExchangeRateConnectionService){
 
         this.googleSheetModal = googleSheetModal;
         this.assetSymbolFilter = assetSymbolFilter;
         this.googleSheetConnectionService = googleSheetConnectionService;
+        this.avgCostPerShareAggregation = avgCostPerShareAggregation;
+        this.ibkrFxRateCalculation = ibkrFxRateCalculation;
+        this.nbpExchangeRateConnectionService = nbpExchangeRateConnectionService;
     }
 
+    @PostConstruct
     public void createTransactionForGoogleSheets(){
 
         List<JsonNode> stockOrders = assetSymbolFilter.getStockOrders();
 
+        Map<String, BigDecimal> avgCostPerSharePerDate = avgCostPerShareAggregation.calculateAvgCostPerSharePerDate();
 
+        Map<String, BigDecimal> UsdPlnFxRatePerDate = ibkrFxRateCalculation.calculateUsdPlnFxRatePerDate();
 
         for (JsonNode ord:stockOrders){
 
-            List<Object> transaction = new ArrayList<>();
+            String tradeDate = ord.get("tradeDate").asText();
 
-            googleSheetModal.setDate(ord.get("tradeDate").asText());
+            BigDecimal interbankFxRate = nbpExchangeRateConnectionService.getNbpInterbankPlnUsdRate(tradeDate);
+            BigDecimal ibkrFxRate = UsdPlnFxRatePerDate.getOrDefault(tradeDate,BigDecimal.ZERO);
+
+            googleSheetModal.setDate(tradeDate);
             googleSheetModal.setTicker(ord.get("symbol").asText());
             googleSheetModal.setOrderType("buy");
-            googleSheetModal.setAmountInvestedPln(BigDecimal.ZERO);
-            googleSheetModal.setAmountInvestedUsd(new BigDecimal(ord.get("tradeMoney").asText()));
+            googleSheetModal.setAmountInvestedPln(BigDecimal.valueOf(3700));
+            googleSheetModal.setActualAmountInvestedUsd(new BigDecimal(ord.get("tradeMoney").asText()));
             googleSheetModal.setPricePerShareUsd(new BigDecimal(ord.get("tradePrice").asText()));
             googleSheetModal.setQuantityBought(new BigDecimal(ord.get("quantity").asText()));
             googleSheetModal.setNetInvestedAfterCostsUSD(new BigDecimal(ord.get("netCash").asText()).abs());
-            googleSheetModal.setAverageCostBasisPerShareUsd(BigDecimal.ZERO);
-            googleSheetModal.setFxFeesUsd(BigDecimal.ZERO);
+            googleSheetModal.setAverageCostBasisPerShareUsd(avgCostPerSharePerDate.getOrDefault(tradeDate,BigDecimal.ZERO));
+            googleSheetModal.setFxFeesUsd(ibkrFxRate.subtract(interbankFxRate).divide(interbankFxRate, 6, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100)));
             googleSheetModal.setTradingFeesUsd(new BigDecimal(ord.get("ibCommission").asText()).abs());
-            googleSheetModal.setIbkrFxRatePlnUsd(new BigDecimal(ord.get("fxRateToBase").asText()));
-            googleSheetModal.setInterBankFxRatePlnUsd(BigDecimal.ZERO);
-            googleSheetModal.setCumulativeSharesHeld(BigDecimal.ZERO);
-            googleSheetModal.setCumulativeInvestedUsd(BigDecimal.ZERO);
-            googleSheetModal.setCumulativeInvestedPln(BigDecimal.ZERO);
-
-            transaction.add(googleSheetModal);
+            googleSheetModal.setIbkrFxRatePlnUsd(ibkrFxRate);
+            googleSheetModal.setInterBankFxRatePlnUsd(interbankFxRate);
 
             List<Object> rowValues =List.of(
                     googleSheetModal.getDate(),
                     googleSheetModal.getTicker(),
                     googleSheetModal.getOrderType(),
                     googleSheetModal.getAmountInvestedPln(),
-                    googleSheetModal.getAmountInvestedUsd(),
+                    googleSheetModal.getActualAmountInvestedUsd(),
                     googleSheetModal.getPricePerShareUsd(),
                     googleSheetModal.getQuantityBought(),
                     googleSheetModal.getNetInvestedAfterCostsUSD(),
@@ -70,10 +87,7 @@ public class FlexAndGoogleSheetModalsMapper {
                     googleSheetModal.getFxFeesUsd(),
                     googleSheetModal.getTradingFeesUsd(),
                     googleSheetModal.getIbkrFxRatePlnUsd(),
-                    googleSheetModal.getInterBankFxRatePlnUsd(),
-                    googleSheetModal.getCumulativeSharesHeld(),
-                    googleSheetModal.getCumulativeInvestedUsd(),
-                    googleSheetModal.getCumulativeInvestedPln()
+                    googleSheetModal.getInterBankFxRatePlnUsd()
             );
 
             try {
@@ -85,4 +99,5 @@ public class FlexAndGoogleSheetModalsMapper {
         }
 
     }
+
 }
