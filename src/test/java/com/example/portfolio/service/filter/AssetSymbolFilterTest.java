@@ -99,6 +99,6 @@ public class AssetSymbolFilterTest {
 
         assertEquals(1,stockTrades.size());
 
-        assertEquals(stockTrades.get(0),stockTrades.get(0));
+        assertEquals(tradesFilteredByDate.get(0),stockTrades.get(0));
     }
 }

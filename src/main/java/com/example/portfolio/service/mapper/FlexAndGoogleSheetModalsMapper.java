@@ -44,21 +44,23 @@ public class FlexAndGoogleSheetModalsMapper {
         this.nbpExchangeRateConnectionService = nbpExchangeRateConnectionService;
     }
 
-    @PostConstruct
-    public void createTransactionForGoogleSheets(){
+    public List<List<Object>> createTransactionListForGoogleSheets(){
 
         List<JsonNode> stockOrders = assetSymbolFilter.getStockOrders();
 
         Map<String, BigDecimal> avgCostPerSharePerDate = avgCostPerShareAggregation.calculateAvgCostPerSharePerDate();
 
-        Map<String, BigDecimal> UsdPlnFxRatePerDate = ibkrFxRateCalculation.calculateUsdPlnFxRatePerDate();
+        Map<String, BigDecimal> usdPlnFxRatePerDate = ibkrFxRateCalculation.calculateUsdPlnFxRatePerDate();
+
+        List<List<Object>> transactionListforGoogleSheets = new ArrayList<>();
 
         for (JsonNode ord:stockOrders){
 
             String tradeDate = ord.get("tradeDate").asText();
 
             BigDecimal interbankFxRate = nbpExchangeRateConnectionService.getNbpInterbankPlnUsdRate(tradeDate);
-            BigDecimal ibkrFxRate = UsdPlnFxRatePerDate.getOrDefault(tradeDate,BigDecimal.ZERO);
+
+            BigDecimal ibkrFxRate = usdPlnFxRatePerDate.getOrDefault(tradeDate,BigDecimal.ZERO);
 
             googleSheetModal.setDate(tradeDate);
             googleSheetModal.setTicker(ord.get("symbol").asText());
@@ -90,12 +92,23 @@ public class FlexAndGoogleSheetModalsMapper {
                     googleSheetModal.getInterBankFxRatePlnUsd()
             );
 
+            transactionListforGoogleSheets.add(rowValues);
+        }
+        return transactionListforGoogleSheets;
+    }
+
+    @PostConstruct
+    public void sendTransactionListToGoogleSheets(){
+
+        List<List<Object>> transactionListforGoogleSheets = createTransactionListForGoogleSheets();
+
+        for (List<Object> transaction:transactionListforGoogleSheets) {
+
             try {
-                googleSheetConnectionService.appendRowValuesToGoogleSheets(rowValues);
+                googleSheetConnectionService.appendRowValuesToGoogleSheets(transaction);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
 
     }
