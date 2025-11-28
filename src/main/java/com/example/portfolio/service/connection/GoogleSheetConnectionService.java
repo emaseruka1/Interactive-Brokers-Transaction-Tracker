@@ -22,11 +22,8 @@ import java.util.*;
 public class GoogleSheetConnectionService {
 
     private static final String credentialsFilePath = "/credentials.json";
-    private static final String tokenKeyDirectoryPath = "tokens";
     private static final String applicationName = "IBKR Portfolio Tracker App";
     private static final GsonFactory jsonToJavaObjectsConvertor = GsonFactory.getDefaultInstance();
-    private static final List<String> readAndWriteScope = Collections.singletonList(SheetsScopes.SPREADSHEETS);
-
 
     private final Sheets googleSheetsApiClient;
     private final String spreadsheetId;
@@ -43,7 +40,7 @@ public class GoogleSheetConnectionService {
 
     public List<LocalDate> getDatesOfPastTransactionsOnGoogleSheets() throws IOException {
 
-        String googleSheetDateColumn = "trackerData!A2:A";
+        String googleSheetDateColumn = "JavaPlugIn!A2:A";
         ValueRange response = googleSheetsApiClient.spreadsheets().values()
                 .get(spreadsheetId, googleSheetDateColumn)
                 .execute();
@@ -67,7 +64,7 @@ public class GoogleSheetConnectionService {
         ValueRange appendBody = new ValueRange().setValues(Collections.singletonList(rowValues));
 
         googleSheetsApiClient.spreadsheets().values()
-                .append(spreadsheetId, "trackerData!A:P", appendBody)
+                .append(spreadsheetId, "JavaPlugIn!A:M", appendBody)
                 .setValueInputOption("RAW")
                 .execute();
     }
