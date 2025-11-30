@@ -83,7 +83,6 @@ public class FlexAndGoogleSheetModalsMapperTest {
                 new BigDecimal("3.675000455"),
                 new BigDecimal("3.6818")
         );
-
         assertEquals(expected,transactionListforGoogleSheets.get(0));
     }
 }
