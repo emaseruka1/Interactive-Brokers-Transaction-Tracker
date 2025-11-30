@@ -35,6 +35,8 @@ build/
 
 ### Google sheet connection Credentials ###
 src/main/resources/credentials.json
+
+### transactions data ###
 /src/test/resources/input/*.xml
 /src/test/resources/input/*.json
 /src/test/resources/output/json/*.json
