@@ -1,0 +1,83 @@
+=============================== 
+START Portfolio Tracker 06/01/2026 23:30:04.51 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2026-01-06T23:30:06.194+01:00  INFO 12908 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Starting PortfolioTrackerAppApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 12908 (E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker\target\portfolio-tracker-app-0.0.1-SNAPSHOT.jar started by Kevin Meng in E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker)
+2026-01-06T23:30:06.199+01:00  INFO 12908 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-01-06T23:30:09.580+01:00  INFO 12908 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Started PortfolioTrackerAppApplication in 4.163 seconds (process running for 5.015)
+SUCCESS: Portfolio Tracker completed successfully 
+END Portfolio Tracker SUCCESS 06/01/2026 23:30:09.62 
+=============================== 
+START Portfolio Tracker 08/01/2026 11:45:53.36 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2026-01-08T11:45:54.846+01:00  INFO 18288 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Starting PortfolioTrackerAppApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 18288 (E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker\target\portfolio-tracker-app-0.0.1-SNAPSHOT.jar started by Kevin Meng in E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker)
+2026-01-08T11:45:54.846+01:00  INFO 18288 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-01-08T11:45:58.441+01:00  WARN 18288 --- [portfolio-tracker-app] [           main] s.c.a.AnnotationConfigApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flexAndGoogleSheetModalsMapper': Invocation of init method failed
+2026-01-08T11:45:58.488+01:00  INFO 18288 --- [portfolio-tracker-app] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-01-08T11:45:58.590+01:00 ERROR 18288 --- [portfolio-tracker-app] [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flexAndGoogleSheetModalsMapper': Invocation of init method failed
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:222) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:429) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1818) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:607) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1221) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1187) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1123) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987) ~[spring-context-6.2.11.jar!/:6.2.11]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627) ~[spring-context-6.2.11.jar!/:6.2.11]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.5.6.jar!/:3.5.6]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.5.6.jar!/:3.5.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.5.6.jar!/:3.5.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.5.6.jar!/:3.5.6]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.5.6.jar!/:3.5.6]
+	at com.example.portfolio.PortfolioTrackerAppApplication.main(PortfolioTrackerAppApplication.java:10) ~[!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:102) ~[portfolio-tracker-app-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64) ~[portfolio-tracker-app-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40) ~[portfolio-tracker-app-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+Caused by: java.lang.ArithmeticException: / by zero
+	at java.base/java.math.BigDecimal.divideAndRound(BigDecimal.java:4679) ~[na:na]
+	at java.base/java.math.BigDecimal.divide(BigDecimal.java:5767) ~[na:na]
+	at java.base/java.math.BigDecimal.divide(BigDecimal.java:1650) ~[na:na]
+	at java.base/java.math.BigDecimal.divide(BigDecimal.java:1680) ~[na:na]
+	at com.example.portfolio.service.mapper.FlexAndGoogleSheetModalsMapper.createTransactionListForGoogleSheets(FlexAndGoogleSheetModalsMapper.java:74) ~[!/:0.0.1-SNAPSHOT]
+	at com.example.portfolio.service.mapper.FlexAndGoogleSheetModalsMapper.sendTransactionListToGoogleSheets(FlexAndGoogleSheetModalsMapper.java:103) ~[!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:401) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:219) ~[spring-beans-6.2.11.jar!/:6.2.11]
+	... 26 common frames omitted
+
+ERROR: Portfolio Tracker failed with exit code 1 
+END Portfolio Tracker FAILED 08/01/2026 11:45:58.65 
