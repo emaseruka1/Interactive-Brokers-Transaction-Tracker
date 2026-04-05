@@ -81,3 +81,54 @@ Caused by: java.lang.ArithmeticException: / by zero
 
 ERROR: Portfolio Tracker failed with exit code 1 
 END Portfolio Tracker FAILED 08/01/2026 11:45:58.65 
+=============================== 
+START Portfolio Tracker 08/01/2026 12:50:40.36 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2026-01-08T12:50:41.839+01:00  INFO 24412 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Starting PortfolioTrackerAppApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 24412 (E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker\target\portfolio-tracker-app-0.0.1-SNAPSHOT.jar started by Kevin Meng in E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker)
+2026-01-08T12:50:41.839+01:00  INFO 24412 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-01-08T12:50:45.635+01:00  INFO 24412 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Started PortfolioTrackerAppApplication in 4.485 seconds (process running for 5.227)
+SUCCESS: Portfolio Tracker completed successfully 
+END Portfolio Tracker SUCCESS 08/01/2026 12:50:45.68 
+=============================== 
+START Portfolio Tracker 07/02/2026 14:45:52.37 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2026-02-07T14:45:53.853+01:00  INFO 11284 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Starting PortfolioTrackerAppApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 11284 (E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker\target\portfolio-tracker-app-0.0.1-SNAPSHOT.jar started by Kevin Meng in E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker)
+2026-02-07T14:45:53.853+01:00  INFO 11284 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-02-07T14:45:58.562+01:00  INFO 11284 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Started PortfolioTrackerAppApplication in 5.404 seconds (process running for 6.117)
+SUCCESS: Portfolio Tracker completed successfully 
+END Portfolio Tracker SUCCESS 07/02/2026 14:45:58.62 
+=============================== 
+START Portfolio Tracker 10/03/2026 11:50:02.99 
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2026-03-10T11:50:04.658+01:00  INFO 30724 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Starting PortfolioTrackerAppApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 30724 (E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker\target\portfolio-tracker-app-0.0.1-SNAPSHOT.jar started by Kevin Meng in E:\WebApp_Projects\Portfolio_Tracker_Project\java\ibkr_portfolioTracker)
+2026-03-10T11:50:04.673+01:00  INFO 30724 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-03-10T11:50:09.647+01:00  INFO 30724 --- [portfolio-tracker-app] [           main] c.e.p.PortfolioTrackerAppApplication     : Started PortfolioTrackerAppApplication in 5.743 seconds (process running for 6.538)
+SUCCESS: Portfolio Tracker completed successfully 
+END Portfolio Tracker SUCCESS 10/03/2026 11:50:09.70 
