@@ -17,6 +17,11 @@ jobs:
           java-version: '17.0.10'
           cache: 'maven'
 
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_AUTH_KEY }}'
+
       - name: Build project
         run: mvn clean install -DskipTests -B
 
