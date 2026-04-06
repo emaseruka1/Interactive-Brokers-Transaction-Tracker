@@ -1,0 +1,4 @@
+flex:
+  query:
+    directory: src/test/resources/input/
+    filename: transactions_20251107.xml

@@ -9,6 +9,7 @@ import com.example.portfolio.service.filter.AssetSymbolFilter;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -98,6 +99,7 @@ public class FlexAndGoogleSheetModalsMapper {
     }
 
     @PostConstruct
+    @Profile("!test")
     public void sendTransactionListToGoogleSheets(){
 
         List<List<Object>> transactionListforGoogleSheets = createTransactionListForGoogleSheets();
