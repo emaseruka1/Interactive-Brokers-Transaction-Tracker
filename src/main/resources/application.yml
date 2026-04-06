@@ -1,8 +1,6 @@
 spring:
   application:
     name: portfolio-tracker-app
-  main:
-    web-application-type: none
 
 flex:
   query:
@@ -13,6 +11,8 @@ google:
   sheet:
     id: 1FMoU7vNY4q9Ym20SeWfoonm1RTmKrguAeMNHNB04ROg
 
+server:
+  port: ${PORT:8080}
 
 
 

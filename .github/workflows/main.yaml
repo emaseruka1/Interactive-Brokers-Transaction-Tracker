@@ -45,5 +45,5 @@ jobs:
           name: gcp-credentials
           path: src/main/resources/
 
-      - name: Run tests
-        run: mvn clean install -s /dev/null -Dspring.profiles.active=test --fail-at-end -X 2>&1 | tee build.log
+      - name: Compile Jar
+        run: mvn clean package -s /dev/null -Dspring.profiles.active=test --fail-at-end -X 2>&1 | tee build.log

@@ -98,7 +98,6 @@ public class FlexAndGoogleSheetModalsMapper {
         return transactionListforGoogleSheets;
     }
 
-    @PostConstruct
     @Profile("!test")
     public void sendTransactionListToGoogleSheets(){
 
