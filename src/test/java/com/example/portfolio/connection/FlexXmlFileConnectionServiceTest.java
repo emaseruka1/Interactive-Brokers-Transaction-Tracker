@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class FlexXmlFileConnectionServiceTest {
 
     @Autowired
-    private FlexXmlFileConnectionService flexXmlFileConnectionService;
+    private FlexXmlFileConnectionService FlexXmlFileConnectionService;
 
     @Test
     void testParseFlexXmlFileToJson() throws IOException {
 
-        JsonNode FlexIbkrJsonData = flexXmlFileConnectionService.parseFlexXmlFileToJson();
+        JsonNode FlexIbkrJsonData = FlexXmlFileConnectionService.parseFlexXmlFileToJson();
 
         ObjectMapper mapper = new ObjectMapper();
         File expectedFile = new File("src/test/resources/output/json/parsedFlexXmlFileToJson.json");

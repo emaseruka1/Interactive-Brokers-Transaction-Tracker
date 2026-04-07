@@ -1,8 +1,8 @@
 package com.example.portfolio.model;
 
 import com.example.portfolio.service.connection.FlexXmlFileConnectionService;
+import com.example.portfolio.service.connection.GcsFlexXmlFileConnectionService;
 import com.fasterxml.jackson.databind.JsonNode;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

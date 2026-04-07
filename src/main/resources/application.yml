@@ -4,8 +4,8 @@ spring:
 
 flex:
   query:
-    directory: E:/WebApp_Projects/Portfolio_Tracker_Project/portfolioTrackerAppData/current
-    filename: transactions.xml
+    bucket: portfolio_tracker_data
+    filename: current/transactions.xml
 
 google:
   sheet:

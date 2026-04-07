@@ -1,6 +1,7 @@
 package com.example.portfolio.model;
 
 import com.example.portfolio.service.connection.FlexXmlFileConnectionService;
+import com.example.portfolio.service.connection.GcsFlexXmlFileConnectionService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,14 +21,14 @@ import static org.mockito.Mockito.when;
 @ActiveProfiles("test")
 public class IbkrFlexJsonDataModalTest {
 
-    private FlexXmlFileConnectionService flexXmlFileConnectionService;
+    private FlexXmlFileConnectionService FlexXmlFileConnectionService;
     private IbkrFlexJsonDataModal ibkrFlexJsonDataModal;
     private JsonNode flexIbkrJsonData;
 
     @BeforeEach
     void setUp() throws Exception{
 
-        flexXmlFileConnectionService = Mockito.mock(FlexXmlFileConnectionService.class);
+        FlexXmlFileConnectionService flexXmlFileConnectionService = Mockito.mock(FlexXmlFileConnectionService.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode flexIbkrJsonData = mapper.readTree(new File("src/test/resources/output/json/parsedFlexXmlFileToJson.json"));
