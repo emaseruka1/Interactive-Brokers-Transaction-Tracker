@@ -1,5 +1,6 @@
 package com.example.portfolio.service.mapper;
 
+import com.example.portfolio.controller.RunJob;
 import com.example.portfolio.model.GoogleSheetModal;
 import com.example.portfolio.service.calculation.AvgCostPerShareAggregation;
 import com.example.portfolio.service.calculation.IbkrFxRateCalculation;
@@ -7,6 +8,8 @@ import com.example.portfolio.service.connection.GoogleSheetConnectionService;
 import com.example.portfolio.service.connection.NbpExchangeRateConnectionService;
 import com.example.portfolio.service.filter.AssetSymbolFilter;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,7 @@ public class FlexAndGoogleSheetModalsMapper {
     private final AvgCostPerShareAggregation avgCostPerShareAggregation;
     private final IbkrFxRateCalculation ibkrFxRateCalculation;
     private final NbpExchangeRateConnectionService nbpExchangeRateConnectionService;
+    private static final Logger log = LoggerFactory.getLogger(FlexAndGoogleSheetModalsMapper.class);
 
     @Autowired
     public FlexAndGoogleSheetModalsMapper(GoogleSheetModal googleSheetModal,
@@ -45,6 +49,8 @@ public class FlexAndGoogleSheetModalsMapper {
     }
 
     public List<List<Object>> createTransactionListForGoogleSheets(){
+
+        log.info("Preparing transaction list");
 
         List<JsonNode> stockOrders = assetSymbolFilter.getStockOrders();
 
@@ -94,11 +100,16 @@ public class FlexAndGoogleSheetModalsMapper {
 
             transactionListforGoogleSheets.add(rowValues);
         }
+
+        log.info("transaction: {}",transactionListforGoogleSheets);
+
         return transactionListforGoogleSheets;
     }
 
     @Profile("!test")
     public void sendTransactionListToGoogleSheets(){
+
+        log.info("Sending Transactions to Google sheets");
 
         List<List<Object>> transactionListforGoogleSheets = createTransactionListForGoogleSheets();
 

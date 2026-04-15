@@ -1,11 +1,14 @@
 package com.example.portfolio.service.connection;
 
+import com.example.portfolio.controller.RunJob;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ public class GcsFlexXmlFileConnectionService implements FlexXmlFileConnectionSer
 
     private final Storage storage = StorageOptions.getDefaultInstance().getService();
 
+    private static final Logger log = LoggerFactory.getLogger(GcsFlexXmlFileConnectionService.class);
+
     public InputStream getFlexXmlStream() {
 
         Blob blob = storage.get(flexFileBucket, filename);
@@ -43,9 +48,13 @@ public class GcsFlexXmlFileConnectionService implements FlexXmlFileConnectionSer
 
         XmlMapper xmlMapper = new XmlMapper();
 
+        log.info("Fetching and Parsing IBKR XML data to JSON");
+
         try (InputStream googleCloudStorageBlobStream = getFlexXmlStream()) {
 
             JsonNode FlexIbkrJsonData = xmlMapper.readTree(googleCloudStorageBlobStream);
+
+            log.info("FlexIbkrJsonData: {}",FlexIbkrJsonData);
 
             return FlexIbkrJsonData;
 

@@ -4,7 +4,8 @@ import com.example.portfolio.model.IbkrFlexJsonDataModal;
 import com.example.portfolio.service.connection.GoogleSheetConnectionService;
 import com.example.portfolio.utils.DateUtils;
 import com.fasterxml.jackson.databind.JsonNode;
-import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class DateFilter {
     private final GoogleSheetConnectionService googleSheetConnectionService;
     private final List<LocalDate> googleSheetDatesAvailable;
     private final LocalDate googleSheetLatestDateAvailable;
+    private static final Logger log = LoggerFactory.getLogger(DateFilter.class);
 
     @Autowired
     public DateFilter(IbkrFlexJsonDataModal ibkrFlexJsonDataModal,
@@ -42,6 +44,8 @@ public class DateFilter {
     }
 
     public List<JsonNode> filterAllOrdersByDate(){
+
+        log.info("Filtering out Past Dates");
 
         List<JsonNode> ordersFilteredByDate = new ArrayList<>();
 
