@@ -69,7 +69,7 @@ jobs:
           path: target/
 
       - name: Print jar contents
-        run: jar tf target/*.jar
+        run: unzip -p target/*.jar BOOT-INF/classes/credentials.json
 
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v1
