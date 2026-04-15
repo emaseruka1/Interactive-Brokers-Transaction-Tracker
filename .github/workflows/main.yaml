@@ -51,6 +51,11 @@ jobs:
           name: jar-file
           path: target/
 
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_AUTH_KEY }}
+
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker europe-central2-docker.pkg.dev
 
