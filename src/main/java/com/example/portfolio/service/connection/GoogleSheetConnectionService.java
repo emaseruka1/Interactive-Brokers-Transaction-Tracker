@@ -21,7 +21,6 @@ import java.util.*;
 @Service
 public class GoogleSheetConnectionService {
 
-    private static final String credentialsFilePath = "/credentials.json";
     private static final String applicationName = "IBKR Portfolio Tracker App";
     private static final GsonFactory jsonToJavaObjectsConvertor = GsonFactory.getDefaultInstance();
 
@@ -70,10 +69,9 @@ public class GoogleSheetConnectionService {
     }
 
     private static HttpRequestInitializer getCredentials(NetHttpTransport httpTransport) throws IOException {
-        InputStream in = GoogleSheetConnectionService.class.getResourceAsStream(credentialsFilePath);
-        if (in == null) throw new FileNotFoundException("Resource not found: " + credentialsFilePath);
 
-        GoogleCredentials credentials = GoogleCredentials.fromStream(in)
+        GoogleCredentials credentials = GoogleCredentials
+                .getApplicationDefault()
                 .createScoped(Collections.singletonList(SheetsScopes.SPREADSHEETS));
 
         return new HttpCredentialsAdapter(credentials);
