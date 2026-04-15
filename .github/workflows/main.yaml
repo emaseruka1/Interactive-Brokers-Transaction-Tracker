@@ -68,6 +68,9 @@ jobs:
           name: jar-file
           path: target/
 
+      - name: Print jar contents
+        run: jar tf target/*.jar
+
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v1
         with:
