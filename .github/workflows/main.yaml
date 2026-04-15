@@ -7,22 +7,11 @@ on:
 
 jobs:
   checkout:
-    name: Checkout Repository & Prepare Credentials
+    name: Checkout Repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Write GCP credentials
-        run: |
-          mkdir -p src/main/resources
-          echo "${{ secrets.GCP_AUTH_KEY }}" > src/main/resources/credentials.json
-
-      - name: Upload Credentials
-        uses: actions/upload-artifact@v4
-        with:
-          name: gcp-credentials
-          path: src/main/resources/credentials.json
 
   build:
     name: Build Project
@@ -38,12 +27,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
-
-      - name: Download GCP Credentials
-        uses: actions/download-artifact@v4
-        with:
-          name: gcp-credentials
-          path: src/main/resources/
 
       - name: Compile Jar
         run: mvn clean package -Dspring.profiles.active=test -DskipTests --fail-at-end -X
@@ -67,14 +50,6 @@ jobs:
         with:
           name: jar-file
           path: target/
-
-      - name: Print jar contents
-        run: unzip -p target/*.jar BOOT-INF/classes/credentials.json
-
-      - name: Authenticate to GCP
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_AUTH_KEY }}
 
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker europe-central2-docker.pkg.dev

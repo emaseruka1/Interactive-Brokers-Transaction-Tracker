@@ -9,6 +9,11 @@ public class RunJob {
 
     private FlexAndGoogleSheetModalsMapper flexAndGoogleSheetModalsMapper;
 
+    public RunJob(FlexAndGoogleSheetModalsMapper flexAndGoogleSheetModalsMapper){
+
+        this.flexAndGoogleSheetModalsMapper = flexAndGoogleSheetModalsMapper;
+    }
+
     @GetMapping("/run")
     public String runJob(){
 
