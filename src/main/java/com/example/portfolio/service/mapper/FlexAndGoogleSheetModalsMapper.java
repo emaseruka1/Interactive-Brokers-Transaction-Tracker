@@ -109,8 +109,6 @@ public class FlexAndGoogleSheetModalsMapper {
     @Profile("!test")
     public void sendTransactionListToGoogleSheets(){
 
-        log.info("Sending Transactions to Google sheets");
-
         List<List<Object>> transactionListforGoogleSheets = createTransactionListForGoogleSheets();
 
         for (List<Object> transaction:transactionListforGoogleSheets) {

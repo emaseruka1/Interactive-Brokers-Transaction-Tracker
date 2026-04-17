@@ -2,8 +2,11 @@ package com.example.portfolio.model;
 
 import com.example.portfolio.service.connection.FlexXmlFileConnectionService;
 import com.example.portfolio.service.connection.GcsFlexXmlFileConnectionService;
+import com.example.portfolio.service.filter.DateFilter;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +25,16 @@ public class IbkrFlexJsonDataModal {
     private final List<JsonNode> allOrders;
     private final List<JsonNode> allTrades;
 
-    @Autowired
-    public IbkrFlexJsonDataModal(FlexXmlFileConnectionService flexXmlFileConnectionService){
+    private static final Logger log = LoggerFactory.getLogger(IbkrFlexJsonDataModal.class);
 
+    public IbkrFlexJsonDataModal(FlexXmlFileConnectionService flexXmlFileConnectionService){
+        log.info("flexXmlFileConnectionService");
         this.flexXmlFileConnectionService = flexXmlFileConnectionService;
+
+        log.info("flexXmlFileConnectionService.parseFlexXmlFileToJson()");
         this.flexIbkrJsonData = flexXmlFileConnectionService.parseFlexXmlFileToJson();
+
+
         this.flexStatements = flexIbkrJsonData.path("FlexStatements");
         this.flexStatement = flexStatements.path("FlexStatement");
         this.trades = iterateThroughStatementJsonNodesForTradesWithData();
