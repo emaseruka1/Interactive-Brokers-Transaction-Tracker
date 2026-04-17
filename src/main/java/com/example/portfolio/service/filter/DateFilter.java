@@ -49,6 +49,10 @@ public class DateFilter {
 
         List<JsonNode> ordersFilteredByDate = new ArrayList<>();
 
+        log.info("test test test");
+
+        log.info("trades from getAllTrades: {}",ibkrFlexJsonDataModal.getAllTrades());
+
         for (JsonNode ord:ibkrFlexJsonDataModal.getAllOrders()){
 
             for (int i=0; i<ord.size();i++){
@@ -70,8 +74,6 @@ public class DateFilter {
     public List<JsonNode> filterAllTradesByDate(){
 
         List<JsonNode> tradesFilteredByDate = new ArrayList<>();
-
-        log.info("trades from getAllTrades: {}",ibkrFlexJsonDataModal.getAllTrades());
 
         for (JsonNode trd:ibkrFlexJsonDataModal.getAllTrades()){
 
