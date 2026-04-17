@@ -67,6 +67,7 @@ public class DateFilter {
         }
 
         log.info("Number of Orders: {}",allOrdersFlattened.size());
+        log.info("Number of Orders: {}",allOrdersFlattened);
 
         for (JsonNode jsonNode : allOrdersFlattened) {
 
