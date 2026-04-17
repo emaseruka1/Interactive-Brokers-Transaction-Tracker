@@ -69,12 +69,15 @@ public class DateFilter {
 
                 if (ord.get(i).getNodeType()== JsonNodeType.ARRAY){
 
-                    String orderTradeDateStr = (ord.get(i).get("tradeDate")).asText();
+                    for (int x=0; x<ord.get(i).size();x++) {
 
-                    LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+                        String orderTradeDateStr = (ord.get(i).get(x).get("tradeDate")).asText();
 
-                    if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
-                        ordersFilteredByDate.add(ord.get(i));
+                        LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+
+                        if (googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)) {
+                            ordersFilteredByDate.add(ord.get(i).get(x));
+                        }
                     }
 
                 }
