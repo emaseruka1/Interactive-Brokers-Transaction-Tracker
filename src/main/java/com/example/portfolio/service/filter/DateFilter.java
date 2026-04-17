@@ -51,7 +51,7 @@ public class DateFilter {
 
         log.info("test test test");
 
-        log.info("trades from getAllOrders: {}",ibkrFlexJsonDataModal.getAllOrders());
+        log.info("trades from getAllOrders: {}",ibkrFlexJsonDataModal.getAllOrders().get(1));
 
         for (JsonNode ord:ibkrFlexJsonDataModal.getAllOrders()){
 
