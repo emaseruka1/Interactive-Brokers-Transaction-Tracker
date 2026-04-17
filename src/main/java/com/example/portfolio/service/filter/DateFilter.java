@@ -67,7 +67,7 @@ public class DateFilter {
 
                 log.info("Data type: {}",ord.get(i).getNodeType());
 
-                if (ord.get(i).getNodeType()== JsonNodeType.ARRAY){
+                if (ord.get(i).isArray()){
 
                     for (int x=0; x<ord.get(i).size();x++) {
 
@@ -82,7 +82,7 @@ public class DateFilter {
 
                 }
 
-                else if (ord.get(i).getNodeType()== JsonNodeType.OBJECT) {
+                else if (ord.get(i).isObject()) {
 
                     String orderTradeDateStr = (ord.get("tradeDate")).asText();
 
