@@ -85,19 +85,32 @@ public class DateFilter {
 
     public List<JsonNode> filterAllTradesByDate(){
 
+        List<JsonNode> allTradesFlattened = new ArrayList<>();
         List<JsonNode> tradesFilteredByDate = new ArrayList<>();
 
-        for (JsonNode trd:ibkrFlexJsonDataModal.getAllTrades()){
+        for (JsonNode trd : ibkrFlexJsonDataModal.getAllTrades()){
 
-            for (int i=0; i<trd.size();i++){
+            if (trd.isObject()){
 
-                String tradeTradeDateStr = (trd.get(i).get("tradeDate")).asText();
+                allTradesFlattened.add(trd);
 
-                LocalDate tradeTradeDate = DateUtils.stringToLocalDate(tradeTradeDateStr);
+            } else if (trd.isArray()) {
 
-                if (googleSheetDatesAvailable.isEmpty() || tradeTradeDate.isAfter(googleSheetLatestDateAvailable)){
-                    tradesFilteredByDate.add(trd.get(i));
+                for (JsonNode node : trd){
+
+                    allTradesFlattened.add(node);
                 }
+            }
+        }
+
+        for (JsonNode jsonNode : allTradesFlattened) {
+
+            String tradeTradeDateStr = (jsonNode.get("tradeDate")).asText();
+
+            LocalDate tradeTradeDate = DateUtils.stringToLocalDate(tradeTradeDateStr);
+
+            if (googleSheetDatesAvailable.isEmpty() || tradeTradeDate.isAfter(googleSheetLatestDateAvailable)){
+                tradesFilteredByDate.add(jsonNode);
             }
         }
 
