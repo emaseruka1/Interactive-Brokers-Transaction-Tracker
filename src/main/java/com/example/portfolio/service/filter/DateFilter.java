@@ -65,6 +65,8 @@ public class DateFilter {
 
             for (int i=0; i<ord.size();i++){
 
+                log.info("Data type: {}",ord.get(i).getNodeType());
+
                 if (ord.get(i).getNodeType()== JsonNodeType.ARRAY){
 
                     String orderTradeDateStr = (ord.get(i).get("tradeDate")).asText();
@@ -87,6 +89,10 @@ public class DateFilter {
                         ordersFilteredByDate.add(ord.get(i));
                     }
                 }
+                else {
+                    throw new IllegalStateException(
+                            "Unexpected node type in AllOrders"
+                    );
 
             }
 
