@@ -4,6 +4,7 @@ import com.example.portfolio.model.IbkrFlexJsonDataModal;
 import com.example.portfolio.service.connection.GoogleSheetConnectionService;
 import com.example.portfolio.utils.DateUtils;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,24 +59,37 @@ public class DateFilter {
         log.info("test test test");
         log.info("trades from getAllOrders index 1: {}",ibkrFlexJsonDataModal.getAllOrders().get(1).getNodeType());
 
-        log.info("test test test");
-        log.info("date from getAllOrders: {}",ibkrFlexJsonDataModal.getAllOrders().get(1).get("tradeDate"));
-
-
+        log.info("Number of Orders: {}",ibkrFlexJsonDataModal.getAllOrders().size());
 
         for (JsonNode ord:ibkrFlexJsonDataModal.getAllOrders()){
 
             for (int i=0; i<ord.size();i++){
 
-                String orderTradeDateStr = (ord.get(i).get("tradeDate")).asText();
+                if (ord.get(i).getNodeType()== JsonNodeType.ARRAY){
 
-                LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+                    String orderTradeDateStr = (ord.get(i).get("tradeDate")).asText();
 
-                if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
-                    ordersFilteredByDate.add(ord.get(i));
+                    LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+
+                    if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
+                        ordersFilteredByDate.add(ord.get(i));
+                    }
+
+                }
+
+                else if (ord.get(i).getNodeType()== JsonNodeType.OBJECT) {
+
+                    String orderTradeDateStr = (ord.get("tradeDate")).asText();
+
+                    LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+
+                    if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
+                        ordersFilteredByDate.add(ord.get(i));
+                    }
                 }
 
             }
+
         }
 
         return ordersFilteredByDate;
