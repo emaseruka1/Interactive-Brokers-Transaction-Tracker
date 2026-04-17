@@ -48,59 +48,36 @@ public class DateFilter {
 
         log.info("Filtering out Past Dates");
 
+        List<JsonNode> allOrdersFlattened = new ArrayList<>();
         List<JsonNode> ordersFilteredByDate = new ArrayList<>();
-
-        log.info("test test test");
-        log.info("trades from getAllOrders: {}",ibkrFlexJsonDataModal.getAllOrders());
-
-        log.info("test test test");
-        log.info("trades from getAllOrders index 0: {}",ibkrFlexJsonDataModal.getAllOrders().get(0).get("tradeDate"));
-
-        log.info("test test test");
-        log.info("trades from getAllOrders index 1: {}",ibkrFlexJsonDataModal.getAllOrders().get(1).get(0).get("tradeDate"));
-
-        log.info("Number of Orders: {}",ibkrFlexJsonDataModal.getAllOrders().size());
 
         for (JsonNode ord:ibkrFlexJsonDataModal.getAllOrders()){
 
-            for (int i=0; i<ord.size();i++){
+            if (ord.isObject()){
 
-                log.info("Data type: {}",ord.get(i).getNodeType());
+                allOrdersFlattened.add(ord);
 
-                if (ord.get(i).isArray()){
+            } else if (ord.isArray()) {
 
-                    for (int x=0; x<ord.get(i).size();x++) {
+                for (JsonNode node:ord){
 
-                        String orderTradeDateStr = (ord.get(i).get(x).get("tradeDate")).asText();
-
-                        LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
-
-                        if (googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)) {
-                            ordersFilteredByDate.add(ord.get(i).get(x));
-                        }
-                    }
-
+                    allOrdersFlattened.add(node);
                 }
-
-                else if (ord.get(i).isObject()) {
-
-                    String orderTradeDateStr = (ord.get("tradeDate")).asText();
-
-                    LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
-
-                    if ( googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)){
-                        ordersFilteredByDate.add(ord.get(i));
-                    }
-                }
-                else {
-                    throw new IllegalStateException(
-                            "Unexpected node type in AllOrders"
-                    );
-                }
-
             }
-
         }
+
+        log.info("Number of Orders: {}",allOrdersFlattened.size());
+
+        for (JsonNode jsonNode : allOrdersFlattened) {
+
+            String orderTradeDateStr = (jsonNode.get("tradeDate")).asText();
+
+            LocalDate orderTradeDate = DateUtils.stringToLocalDate(orderTradeDateStr);
+
+            if (googleSheetDatesAvailable.isEmpty() || orderTradeDate.isAfter(googleSheetLatestDateAvailable)) {
+                    ordersFilteredByDate.add(jsonNode);
+                }
+            }
 
         return ordersFilteredByDate;
     }
