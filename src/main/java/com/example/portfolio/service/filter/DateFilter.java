@@ -93,6 +93,7 @@ public class DateFilter {
                     throw new IllegalStateException(
                             "Unexpected node type in AllOrders"
                     );
+                }
 
             }
 
