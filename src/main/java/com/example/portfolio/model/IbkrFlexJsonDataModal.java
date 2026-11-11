@@ -46,8 +46,15 @@ public class IbkrFlexJsonDataModal {
 
         List<JsonNode> tradesWithData = new ArrayList<>();
 
-        for (JsonNode stmt:flexStatement){
-            if(stmt.path("Trades").size()>0){tradesWithData.add(stmt);}
+        if (flexStatements.get("count").asInt() == 1 && flexStatement.path("Trades").size()>0){
+            tradesWithData.add(flexStatement);
+        }
+        else{
+            for (JsonNode stmt:flexStatement){
+
+                if(stmt.path("Trades").size()>0){tradesWithData.add(stmt);}
+            }
+
         }
 
         return tradesWithData;
